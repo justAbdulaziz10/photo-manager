@@ -34,6 +34,7 @@ public class Album {
 	
 	// Return all photos that satisfy the album condition
 	public LinkedList<Photo> getPhotos(){
+		return null; //we need to make it
 		
 	}
 	//The list of photos that belong to the album is determined at the time when the method
