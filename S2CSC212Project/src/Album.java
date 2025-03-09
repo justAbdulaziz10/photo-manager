@@ -6,10 +6,13 @@ public class Album {
 	
 
 	// Constructor
+	//The photo manager organizes the photos into albums created by the user
 	public Album(String name, String condition, PhotoManager manager) {
-		this.name=name;
+		this.name=name; //An album is identifiedby a unique name
+		//regroups photos that satisfy certain conditions. The conditions used to
+                //create albums consist in a sequence of tags separated by ”AND”:
 		this.condition=condition;
-		
+		//An empty condition matches all photos.
 	}
 	
 	
