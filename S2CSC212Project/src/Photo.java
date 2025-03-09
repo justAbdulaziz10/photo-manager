@@ -17,6 +17,7 @@ public class Photo {
 	
 	// Return all tags associated with the photo
 	public LinkedList<String> getTags(){
+		return null; // we need to make it
 		
 	}
 	
