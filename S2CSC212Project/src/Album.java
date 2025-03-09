@@ -2,17 +2,15 @@
 public class Album {
 	String name;
 	String condition;
+	PhotoManager manager;
 	
 	
 
 	// Constructor
-	//The photo manager organizes the photos into albums created by the user
 	public Album(String name, String condition, PhotoManager manager) {
-		this.name=name; //An album is identifiedby a unique name
-		//regroups photos that satisfy certain conditions. The conditions used to
-                //create albums consist in a sequence of tags separated by ”AND”:
+		this.name=name;
 		this.condition=condition;
-		//An empty condition matches all photos.
+		
 	}
 	
 	
@@ -29,6 +27,7 @@ public class Album {
 	
 	// Return the manager
 	public PhotoManager getManager() {
+		return manager;
 
 	}
 	
@@ -37,10 +36,16 @@ public class Album {
 	public LinkedList<Photo> getPhotos(){
 		
 	}
+	//The list of photos that belong to the album is determined at the time when the method
+	//getPhotos in Album is called, not when the album is created.
 	
 	
 	// Return the number of tag comparisons used to find all photos of the album
+	//The method public int getNbComps(): Computes the number of tag comparisons
+	//made to determine the photos belonging to an album. Its purpose is to track efficiency
+	//by counting tag comparisons
 	public int getNbComps() {
+		return 0; // we need to make it
 		
 	}
 	
