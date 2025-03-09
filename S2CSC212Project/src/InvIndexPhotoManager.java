@@ -1,8 +1,8 @@
 public class InvIndexPhotoManager {
-	
+
 	// Constructor
-	public Photomanager() {
-		
+	public void Photomanager() {// it's not 'VOID' but i want the error to go
+
 	}
 	
 	
@@ -20,6 +20,7 @@ public class InvIndexPhotoManager {
 	
 	// Return the inverted index of all managed photos
 	public BST<LinkedList<Photo>> getPhotos(){
+		return null; //we need to make it
 		
 	}
 	
