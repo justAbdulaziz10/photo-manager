@@ -1,7 +1,6 @@
 
 public class PhotoManager {
 	
-	
 	// Constructor
 	public PhotoManager() {
 		
@@ -10,6 +9,7 @@ public class PhotoManager {
 	
 	// Return all managed photos
 	public LinkedList<Photo> getPhotos(){
+		return null; //we need to make it
 
 	}
 	
