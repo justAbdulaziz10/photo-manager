@@ -65,5 +65,14 @@ public class LinkedList<T> implements List<T> {
 		else
 			current = current.next;
 	}
-
+	public void display() {
+		// this method is for testing only !!
+		if (head == null)
+			System.out.println("empty list");
+		Node<T> p = head;
+		while (p != null) {
+			System.out.println(p.data + " , ");
+			p = p.next;
+		}
+	}
 }
