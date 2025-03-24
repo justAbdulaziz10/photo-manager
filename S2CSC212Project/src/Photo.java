@@ -7,11 +7,11 @@ public class Photo {
 		this.tags = tags;
 	}
 
-	private String GetPath() {
+	private String getPath() {
 		return path;
 	}
 
-	private LinkedList<String> GetTags() {
+	private LinkedList<String> getTags() {
 		return tags;
 	}
 
