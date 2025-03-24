@@ -1,25 +1,25 @@
-
 public class Photo {
 	String path;
+	LinkedList<String> tags;
 
-	// Constructor
-	public Photo(String path, LinkedList<String> tags) {
-		this.path=path;
-		
+	private Photo(String path, LinkedList<String> tags) {
+		this.path = path;
+		this.tags = tags;
 	}
-	
-	
-	// Return the full file name (the path) of the photo. A photo is uniquely identified by its path.
-	public String getPath() {
+
+	private String GetPath() {
 		return path;
 	}
 
-	
-	// Return all tags associated with the photo
-	public LinkedList<String> getTags(){
-		return null; // we need to make it
-		
+	private LinkedList<String> GetTags() {
+		return tags;
 	}
-	
-	
+
+	private void displayPhoto() {
+		// this method is for testing only !!
+		System.out.println("Path: " + path);
+		System.out.print("Tags: ");
+		tags.display();
+
+	}
 }
