@@ -64,29 +64,29 @@ public class BST <T> {
 		}
 	}
 	
-	public BooleanWrapper remove_key (int tkey){
-		BooleanWrapper removed = new BooleanWrapper(false);
-		BSTNode<T> p;
-		p = remove_aux(tkey, root, removed);
-		current = root = p;
-		return removed;
+	public boolean remove_key(int tkey) {
+	    // Keep track of whether removal occurred with a class field
+	    boolean wasRemoved = false;
+	    root = remove_aux(tkey, root, wasRemoved);
+	    current = root;
+	    return wasRemoved;
 	}
 	
-	private BSTNode<T> remove_aux(int key, BSTNode<T> p, BooleanWrapper flag) {
+	private BSTNode<T> remove_aux(int key, BSTNode<T> p, boolean wasRemoved) {
 		BSTNode<T> q, child = null;
 		if(p == null)
 			return null;
 		if(key < p.key)
-			p.left = remove_aux(key, p.left, flag); //go left
+			p.left = remove_aux(key, p.left, wasRemoved); //go left
 		else if(key > p.key)
-			p.right = remove_aux(key, p.right, flag); //go right
+			p.right = remove_aux(key, p.right, wasRemoved); //go right
 		else { // key is found
-			flag.set( true);
+			wasRemoved= true;
 			if (p.left != null && p.right != null){ //two children
 				q = find_min(p.right);
 				p.key = q.key;
 				p.data = q.data;
-				p.right = remove_aux(q.key, p.right, flag);
+				p.right = remove_aux(q.key, p.right, wasRemoved);
 			}
 			else {
 				if (p.right == null) //one child
