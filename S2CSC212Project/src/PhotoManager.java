@@ -13,20 +13,22 @@ public class PhotoManager {
         photos.insert(p);
     }
  // Delete a photo
-    public void deletePhoto(String path) {
-        Node<Photo> current = photos.getHead();
-        Node<Photo> previous = null;
-        while (current != null) {
-            if (current.getData().getPath().equals(path)) {
-                if (previous == null) {
-                    photos.setHead(current.getNext());
-                } else {
-                    previous.setNext(current.getNext());
-                }
-                break;
-            }
-            previous = current;
-            current = current.getNext();
+  public void deletePhoto(String path) {
+    if (photos.empty()) {
+        return;
+    }
+    photos.findFirst();
+    if (photos.retrieve().getPath().equals(path)) {
+        photos.remove();
+        return;
+    }
+    while (!photos.last()) {
+        photos.findNext();
+        if (photos.retrieve().getPath().equals(path)) {
+            photos.remove();
+            return;
         }
     }
+}
+
 }
