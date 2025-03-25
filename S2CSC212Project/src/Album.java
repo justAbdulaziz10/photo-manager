@@ -34,8 +34,12 @@
 	// Return all photos that satisfy the album condition
 	public LinkedList<Photo> getPhotos(){	
 		
-	    if (condition == null || condition.isEmpty() || manager == null) {
-	        return new LinkedList<>();
+		if(manager == null) {
+			return new LinkedList<>();
+		}
+		
+	    if (condition == null || condition.isEmpty()) {
+	    	return manager.getPhotos();
 	    }
 	    
 	    if (condition.contains("AND")) {
