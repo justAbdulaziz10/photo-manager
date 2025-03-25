@@ -2,12 +2,12 @@ public class Photo {
 	String path;
 	LinkedList<String> tags;
 
-	public Photo(String path, LinkedList<String> tags) { // it was private
+	public Photo(String path, LinkedList<String> tags) { 
 		this.path = path;
 		this.tags = tags;
 	}
 
-	public String getPath() {  // it was private
+	public String getPath() {  
 		return path;
 	}
 
