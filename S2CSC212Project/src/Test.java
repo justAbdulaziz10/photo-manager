@@ -11,13 +11,15 @@ public class Test {
 		Album album2 = new Album("Album2", "animal AND grass", manager);
 		System.out.println("Get photo1 path and tags:");
 		System.out.println("photo1 path: " + photo1.getPath());
-		//You can get the list of tags of photo1 by calling photo1.getTags().
-		//You can write a method that prints the list of tags of photo1.
+		//we can get the list of tags of photo1 by calling photo1.getTags().
+		photo1.getPath();
+		//we can write a method that prints the list of tags of photo1.
 		System.out.println("Get album2 name, condition, and photos:");
 		System.out.println("album2 name: " + album2.getName());
 		System.out.println("album2 condition: " + album2.getCondition());
-		//You can get the list of photos in album2 by calling album2.getPhotos().
-		//You can write a method that prints the list of photos in album2.
+		//we can get the list of photos in album2 by calling album2.getPhotos().
+		album2.getPhotos();
+		//we can write a method that prints the list of photos in album2.
 		System.out.println("Delete the photo ’bear.jpg’:");
 		manager.deletePhoto("bear.jpg");
 		}
