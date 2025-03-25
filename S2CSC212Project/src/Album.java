@@ -5,8 +5,6 @@
 	private int tagComparisons = 0;
 
 	
-	
-
 	// Constructor
 	public Album(String name, String condition, PhotoManager manager) {
 		this.name=name;
@@ -110,7 +108,7 @@
 		
 	}
 	
-	LinkedList<Photo> getTagPhoto(String tag){
+	public LinkedList<Photo> getTagPhoto(String tag){
 		LinkedList<Photo> result = new LinkedList<Photo>();
 	    
 	    if (tag == null || this.getManager() == null) {
@@ -148,7 +146,7 @@
 		
 	}
 	
-	LinkedList<Photo> AND(LinkedList<Photo> A, LinkedList<Photo> B){
+	public LinkedList<Photo> AND(LinkedList<Photo> A, LinkedList<Photo> B){
 		LinkedList<Photo> results = new LinkedList<>();
 	    
 	    if (A == null || A.empty()) {
