@@ -10,27 +10,27 @@ public class InvIndexPhotoManager {
 	//2-Use a data structure that allows O(log n) in average to search for a tag.
 
 	// Constructor
-	public void Photomanager() {// it's not 'VOID' but i want the error to go
-
+	public InvIndexPhotoManager() {
+		invertedIndex = new BST<>();
+        manager = new PhotoManager();
 	}
-	
+
 	
 	// Add a photo
 	public void addPhoto(Photo p) {
 		
 	}
-	
+
 	
 	// Delete a photo
 	public void deletePhoto(String path) {
 		
 	}
-	
+
 	
 	// Return the inverted index of all managed photos
 	public BST<LinkedList<Photo>> getPhotos(){
-		return null; //we need to make it
-		
+		return invertedIndex;
 	}
 	
 	
