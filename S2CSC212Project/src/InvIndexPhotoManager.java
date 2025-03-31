@@ -11,8 +11,8 @@ public class InvIndexPhotoManager {
 
 	// Constructor
 	public InvIndexPhotoManager() {
-		invertedIndex = new BST<>();
-        manager = new PhotoManager();
+	    invertedIndex = new BST<>();
+            manager = new PhotoManager();
 	}
 
 	
