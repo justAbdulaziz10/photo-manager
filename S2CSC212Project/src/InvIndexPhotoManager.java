@@ -54,11 +54,106 @@ public class InvIndexPhotoManager {
 		}
 	}
 
-	// Delete a photo
-	public void deletePhoto(String path) {
-
+	private boolean removePhotoFromList(LinkedList<Photo> list, String path) {
+	    // Check if the list is empty; if so, there is nothing to remove.
+	    if (list.empty()) {
+	        return false;
+	    }
+	    
+	    // Start iterating from the first element in the list.
+	    list.findFirst();
+	    boolean found = false;
+	    
+	    // Loop through the list until the end is reached.
+	    while (true) {
+	        // Retrieve the current photo.
+	        Photo current = list.retrieve();
+	        
+	        // Check if the current photo's path matches the specified path.
+	        if (current.getPath().equals(path)) {
+	            // Remove the photo from the list.
+	            list.remove();
+	            found = true;
+	            break;  // Exit the loop after removal.
+	        }
+	        
+	        // If this is the last element, exit the loop.
+	        if (list.last()) {
+	            break;
+	        }
+	        
+	        // Move to the next element in the list.
+	        list.findNext();
+	    }
+	    
+	    // Return true if the photo was successfully removed, otherwise false.
+	    return found;
 	}
 
+
+	// Delete a photo
+	public void deletePhoto(String path) {
+		Photo targetPhoto = null;
+		allPhotos.findFirst();
+		// Traverse the list to find the photo with the matching path.
+		do {
+		    Photo current = allPhotos.retrieve();
+		    if (current.getPath().equals(path)) {
+		        targetPhoto = current;
+		        break;
+		    }
+		    allPhotos.findNext();
+		} while (!allPhotos.last());
+
+		// Check the last element if not already found.
+		if (targetPhoto == null) {
+		    Photo current = allPhotos.retrieve();
+		    if (current.getPath().equals(path))
+		        targetPhoto = current;
+		}
+
+		// If the photo is not found, do nothing.
+		if (targetPhoto == null)
+		    return;
+
+		// Remove the photo from allPhotos.
+		// (Assuming remove() deletes the current element in the iteration.)
+		allPhotos.remove();
+
+		// Now, update the inverted index for each tag associated with the photo.
+		LinkedList<String> tags = targetPhoto.getTags();
+		if (!tags.empty()) {
+		    tags.findFirst();
+		    while (!tags.last()) {
+		        String tag = tags.retrieve();
+		        if (index.findkey(tag)) {
+		            // Retrieve the list of photos associated with the tag.
+		            LinkedList<Photo> photoList = index.retrieve();
+		            // Remove the photo from this list.
+		            if (removePhotoFromList(photoList, path)) {
+		                // If the list becomes empty, remove the tag from the index.
+		                if (photoList.empty()) {
+		                	index.removeKey(tag.hashCode());
+
+		                }
+		            }
+		        }
+		        tags.findNext();
+		    }
+		    // Process the last tag.
+		    String tag = tags.retrieve();
+		    if (index.findkey(tag)) {
+		        LinkedList<Photo> photoList = index.retrieve();
+		        if (removePhotoFromList(photoList, path)) {
+		            if (photoList.empty()) {
+		            	index.removeKey(tag.hashCode());
+
+		            }
+		        }
+		    }
+		}
+
+	}
 	// Return the inverted index of all managed photos public
 	public BST<LinkedList<Photo>> getPhotos() {
 		return invertedIndex;
