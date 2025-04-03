@@ -14,8 +14,8 @@ public class InvIndexPhotoManager {
 
 	// Constructor
 	public InvIndexPhotoManager() {
-		invertedIndex = new BST<>();
-		manager = new PhotoManager();
+		index = new BST<>();
+		allPhotos = new LinkedList<>();
 	}
 
 	// Add a photo
@@ -23,36 +23,52 @@ public class InvIndexPhotoManager {
 	public void addPhoto(Photo p) {
 		if (PhotoExist(allPhotos, p))
 			return;
+		
 		allPhotos.insert(p);
 		LinkedList<String> tags = p.getTags();
+		
 		if (tags.empty())
 			return;
+		
 		tags.findFirst();
 		while (!tags.last()) {
 			String currentTag = tags.retrieve();
-			boolean found = index.findkey(currentTag);
+			int tagKey = stringToKey(currentTag);//////////////////////
+			
+			boolean found = index.findkey(tagKey);
 			if (!found) {
-				LinkedList<Photo> currentPhoto = new LinkedList<Photo>();
-				currentPhoto.insert(p);
-				index.insert(currentTag, currentPhoto);
+				LinkedList<Photo> photoList = new LinkedList<Photo>();
+				photoList.insert(p);
+				index.insert(tagKey, photoList);
 			} else {
-				LinkedList<Photo> currentPhoto = index.retrieve();
-				currentPhoto.insert(p);
+				LinkedList<Photo> photoList = index.retrieve();
+				photoList.insert(p);
 			}
 			tags.findNext();
 		}
 		// to add the last element:
 		String currentTag = tags.retrieve();
-		boolean found = index.findkey(currentTag);
+		int tagKey = stringToKey(currentTag);/////////
+		
+		boolean found = index.findkey(tagKey);
 		if (!found) {
-			LinkedList<Photo> currentPhoto = new LinkedList<Photo>();
-			currentPhoto.insert(p);
-			index.insert(currentTag, currentPhoto);
+			LinkedList<Photo> photoList = new LinkedList<Photo>();
+			photoList.insert(p);
+			index.insert(tagKey, photoList);
 		} else {
-			LinkedList<Photo> currentPhoto = index.retrieve();
-			currentPhoto.insert(p);
+			LinkedList<Photo> photoList = index.retrieve();
+			photoList.insert(p);
 		}
 	}
+	
+	// Helper method to convert a string tag to an integer key
+    private int stringToKey(String tag) {
+        int key = 0;
+        for (int i = 0; i < tag.length(); i++) {
+            key = key * 31 + tag.charAt(i);
+        }
+        return key;
+    }
 
 	private boolean removePhotoFromList(LinkedList<Photo> list, String path) {
 	    // Check if the list is empty; if so, there is nothing to remove.
@@ -93,28 +109,34 @@ public class InvIndexPhotoManager {
 
 	// Delete a photo
 	public void deletePhoto(String path) {
+		
+		if (allPhotos.empty())
+            return;
+		
 		Photo targetPhoto = null;
 		allPhotos.findFirst();
 		// Traverse the list to find the photo with the matching path.
-		do {
+		while(true) {
 		    Photo current = allPhotos.retrieve();
 		    if (current.getPath().equals(path)) {
 		        targetPhoto = current;
 		        break;
 		    }
+		    
+		    if(allPhotos.last()) {
+		    	break;
+		    }
+		    
 		    allPhotos.findNext();
-		} while (!allPhotos.last());
+		}
 
 		// Check the last element if not already found.
 		if (targetPhoto == null) {
 		    Photo current = allPhotos.retrieve();
 		    if (current.getPath().equals(path))
 		        targetPhoto = current;
-		}
-
-		// If the photo is not found, do nothing.
-		if (targetPhoto == null)
 		    return;
+		}
 
 		// Remove the photo from allPhotos.
 		// (Assuming remove() deletes the current element in the iteration.)
@@ -126,14 +148,16 @@ public class InvIndexPhotoManager {
 		    tags.findFirst();
 		    while (!tags.last()) {
 		        String tag = tags.retrieve();
-		        if (index.findkey(tag)) {
+		        int tagKey = stringToKey(tag);
+		        
+		        if (index.findkey(tagKey)) {
 		            // Retrieve the list of photos associated with the tag.
 		            LinkedList<Photo> photoList = index.retrieve();
 		            // Remove the photo from this list.
 		            if (removePhotoFromList(photoList, path)) {
 		                // If the list becomes empty, remove the tag from the index.
 		                if (photoList.empty()) {
-		                	index.removeKey(tag.hashCode());
+		                	index.removeKey(tagKey);
 
 		                }
 		            }
@@ -142,7 +166,9 @@ public class InvIndexPhotoManager {
 		    }
 		    // Process the last tag.
 		    String tag = tags.retrieve();
-		    if (index.findkey(tag)) {
+		    int tagKey = stringToKey(tag);
+		    
+		    if (index.findkey(tagKey)) {
 		        LinkedList<Photo> photoList = index.retrieve();
 		        if (removePhotoFromList(photoList, path)) {
 		            if (photoList.empty()) {
@@ -157,21 +183,24 @@ public class InvIndexPhotoManager {
 
 	// Return the inverted index of all managed photos public
 	public BST<LinkedList<Photo>> getPhotos() {
-		return invertedIndex;
+		return index;
 	}
 
 	// helping method
 	public boolean PhotoExist(LinkedList<Photo> L, Photo p) {
 		if (L.empty())
 			return false;
+		
 		L.findFirst();
 		while (!L.last()) {
-			if (L.retrieve().path.equals(p.path))
+			if (L.retrieve().getPath().equals(p.getPath()))
 				return true;
 			L.findNext();
 		}
-		if (L.retrieve().path.equals(p.path))
+		
+		if (L.retrieve().getPath().equals(p.getPath()))
 			return true;
+		
 		return false;
 
 	}
