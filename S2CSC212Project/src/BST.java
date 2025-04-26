@@ -1,7 +1,7 @@
 public class BST <T> {
 	BSTNode<T> root, current;
+	static int bstComparisons=0;
 	
-	/** Creates a new instance of BST */
 	public BST() {
 		root = current = null;
 	}
@@ -20,11 +20,11 @@ public class BST <T> {
 	
 	public boolean findkey(int tkey) {
 		BSTNode<T> p = root, q = root;
-				
 		if(empty())
 			return false;
 		
 		while(p != null) {
+			bstComparisons++;
 			q = p;
 			if(p.key == tkey) {
 				current = p;
@@ -44,8 +44,8 @@ public class BST <T> {
 		BSTNode<T> p, q = current;
 		
 		if(findkey(k)) {
-			current = q;  // findkey() modified current
-			return false; // key already in the BST
+			current = q;  
+			return false; 
 		}
 		
 		p = new BSTNode<T>(k, val);
@@ -54,7 +54,6 @@ public class BST <T> {
 			return true;
 		}
 		else {
-			// current is pointing to parent of the new key
 			if (k < current.key)
 				current.left = p;
 			else
@@ -65,7 +64,6 @@ public class BST <T> {
 	}
 	
 	public boolean remove_key(int tkey) {
-	    // Keep track of whether removal occurred with a class field
 	    boolean wasRemoved = false;
 	    root = remove_aux(tkey, root, wasRemoved);
 	    current = root;
@@ -77,21 +75,21 @@ public class BST <T> {
 		if(p == null)
 			return null;
 		if(key < p.key)
-			p.left = remove_aux(key, p.left, wasRemoved); //go left
+			p.left = remove_aux(key, p.left, wasRemoved); 
 		else if(key > p.key)
-			p.right = remove_aux(key, p.right, wasRemoved); //go right
-		else { // key is found
+			p.right = remove_aux(key, p.right, wasRemoved); 
+		else { 
 			wasRemoved= true;
-			if (p.left != null && p.right != null){ //two children
+			if (p.left != null && p.right != null){ 
 				q = find_min(p.right);
 				p.key = q.key;
 				p.data = q.data;
 				p.right = remove_aux(q.key, p.right, wasRemoved);
 			}
 			else {
-				if (p.right == null) //one child
+				if (p.right == null) 
 					child = p.left;
-				else if (p.left == null) //one child
+				else if (p.left == null) 
 					child = p.right;
 				return child;
 			}
@@ -116,10 +114,9 @@ public class BST <T> {
 	}
 	
 	public boolean removeKey(int k) {
-		//Search for k
 		int k1 =k;
 		BSTNode<T> p=root;
-		BSTNode<T> q=null;//parent of p
+		BSTNode<T> q=null;
 		while (p!=null) {
 			if(k1<p.key) {
 				q=p;
