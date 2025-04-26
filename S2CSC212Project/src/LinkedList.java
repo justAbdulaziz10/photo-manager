@@ -65,8 +65,27 @@ public class LinkedList<T> implements List<T> {
 		else
 			current = current.next;
 	}
+	
+	@Override
+	public String toString() {
+	    if (empty()) return "[]";
+	    
+	    StringBuilder sb = new StringBuilder();
+	    sb.append("[");
+	    
+	    findFirst();
+	    while (true) {
+	        sb.append(retrieve());
+	        if (last()) break;
+	        sb.append(", ");
+	        findNext();
+	    }
+	    
+	    sb.append("]");
+	    return sb.toString();
+	}
+	
 	public void display() {
-		// this method is for testing only !!
 		if (head == null)
 			System.out.println("empty list");
 		Node<T> p = head;
