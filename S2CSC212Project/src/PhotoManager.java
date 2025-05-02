@@ -91,22 +91,6 @@ public class PhotoManager {
         return "TAG_" + key;
     }
     
-    
-    public LinkedList<Photo> getPhotosWithTag(String tag) {
-        LinkedList<Photo> result = new LinkedList<>();
-        int tagKey = stringToKey(tag);
-        if (invertedIndex.findkey(tagKey)) {
-            LinkedList<Photo> found = invertedIndex.retrieve();
-            found.findFirst();
-            while (true) {
-                result.insert(found.retrieve());
-                if (found.last()) break;
-                found.findNext();
-            }
-        }
-        return result;
-    }
-    
     public String findTagName(int tagKey) {
         return tagNameMap.findkey(tagKey) ? tagNameMap.retrieve() : ("UNKNOWN_" + tagKey);
     }
