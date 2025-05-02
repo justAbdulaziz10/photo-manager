@@ -200,23 +200,6 @@ public class PhotoManager {
 
         return comparisons;
     }
-     
-    public int getBSTComparisonsForTag(String tag) {
-        int tagKey = stringToKey(tag);
-        int count = 0;
-        BSTNode<LinkedList<Photo>> p = invertedIndex.root;
-        while (p != null) {
-            count++;
-            if (tagKey == p.key)
-                break;
-            else if (tagKey < p.key)
-                p = p.left;
-            else
-                p = p.right;
-        }
-        return count;
-    }
-
 
 
 }
