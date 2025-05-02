@@ -10,10 +10,6 @@ public class BST <T> {
 		return root == null;
 	}
 	
-	public boolean full() {
-		return false;
-	}
-	
 	public T retrieve () {
 		return current.data;
 	}
@@ -108,8 +104,4 @@ public class BST <T> {
 		return p;
 	}
 }
-
-
-
-
 
