@@ -17,15 +17,31 @@ public class Test {
 		manager.addPhoto(photo7);
 		Photo photo8 = new Photo("fox.jpg",toTagsLinkedList("animal,fox, tree, forest, grass"));
 		manager.addPhoto(photo8);
+		Photo photo9 = new Photo(" ",toTagsLinkedList(" "));
+		manager.addPhoto(photo9);
+		
+		System.out.println("we have added photos");
+		System.out.println();
+
 		
 		Album normalAlbum1 = new Album("Album1", "bear", manager, false);
 		Album normalAlbum2 = new Album("Album2", "animal AND grass", manager,false);
 		Album normalAlbum3 = new Album("Album3", "", manager,false);
 		
+		System.out.println("we have created linkedlist Albums");
+
+		
 		Album invertedAlbum4 = new Album("Album4", "bear", manager,true);
 		Album invertedAlbum5 = new Album("Album5", "animal AND grass", manager,true);
 		Album invertedAlbum6 = new Album("Album6", "", manager,true);
-		        
+		
+		System.out.println("we have created invertedBST Albums");
+		System.out.println();
+
+		System.out.println("--------------------------------------------------------------------------");
+		System.out.println("now let's get all photos paths and tags: ");
+		System.out.println();
+   
 		System.out.println("Get photo1 path and tags:");
 		System.out.println("photo1 path: " + photo1.getPath());
 		System.out.println("photo1 tags: "+ photo1.getTags());
@@ -65,14 +81,19 @@ public class Test {
 		System.out.println("photo8 path: " + photo8.getPath());
 		System.out.println("photo8 tags: "+ photo8.getTags());
 		System.out.println();
+		
+		System.out.println("Get photo9 path and tags:");
+		System.out.println("photo9 path: " + photo9.getPath());
+		System.out.println("photo9 tags: "+ photo9.getTags());
+		System.out.println();
 		System.out.println();
 		System.out.println("--------------------------------------------------------------------------");
 
 		
-        System.out.println("Normal Album Photos:");
+        System.out.println("now let's get linkedlests Albums name, conditions and photos:");
 		System.out.println();
 
-		
+		normalAlbum1.getPhotos();
 		System.out.println("Get album1 name, condition, and photos:");
 		System.out.println("album1 name: " + normalAlbum1.getName());
 		System.out.println("album1 condition: " + normalAlbum1.getCondition());
@@ -96,6 +117,11 @@ public class Test {
 		System.out.println("album3 manager: " + normalAlbum3.getManager());
 
 		normalAlbum3.getPhotos();
+		System.out.println();
+		
+		System.out.println("--------------------------------------------------------------------------");
+	
+        System.out.println("now let's get invertedBST Albums name, conditions and photos:");
 		System.out.println();
 		
 		System.out.println("Get album4 name, condition, and photos:");
@@ -124,7 +150,7 @@ public class Test {
 		System.out.println("--------------------------------------------------------------------------");
 
 		
-		System.out.println("Photos (normal manager):");
+		System.out.println("normal LinkedList Content:");
 		printNormalList(manager);
 		System.out.println();
 		System.out.println("--------------------------------------------------------------------------");
@@ -132,7 +158,7 @@ public class Test {
 		
 		
 		
-		System.out.println("Inverted Index Content:");
+		System.out.println("InvertedIndexBST Content:");
 		printInvertedIndex(manager.getInvertedIndex(),manager);
 		System.out.println();
 		System.out.println("--------------------------------------------------------------------------");
@@ -176,6 +202,8 @@ public class Test {
 			System.out.println();
 
 		}
+		System.out.println("--------------------------------------------------------------------------");
+
 		
 		System.out.println("Delete the photo 'cat.jpg':");
 		if (manager.deletePhoto("cat.jpg")) {
@@ -187,12 +215,15 @@ public class Test {
 		    System.out.println("cat.jpg not found in normal manager.");
 			System.out.println();
 		}
+		System.out.println("--------------------------------------------------------------------------");
+
 
 
 		System.out.println("Delete the photo 'fox.jpg':");
 		if (manager.deletePhoto("fox.jpg")) {
 		    System.out.println("fox.jpg deleted successfully from inverted index.");
 			System.out.println("Inverted Index after deletion:");
+
 			printInvertedIndex(manager.getInvertedIndex(),manager);
 			System.out.println();
 		} else {
@@ -288,12 +319,11 @@ public class Test {
 
 	    int tagKey = node.key;
 	    String tagName = manager.getTagName(tagKey); 
-
-	    System.out.print(tagName + " → ");
+	    System.out.print(tagName + " -> ");
 
 	    LinkedList<Photo> photos = node.data;
 	    if (photos.empty()) {
-	        System.out.println("[]");
+	        System.out.println("[empty]");
 	    } else {
 	        photos.findFirst();
 	        while (true) {
@@ -316,7 +346,6 @@ public class Test {
 	        return;
 	    }
 
-	    System.out.println("Photos (Normal LinkedList):");
 	    photos.findFirst();
 	    while (true) {
 	        System.out.println(photos.retrieve().getPath());
