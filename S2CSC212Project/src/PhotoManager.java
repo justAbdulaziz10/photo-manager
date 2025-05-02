@@ -90,10 +90,6 @@ public class PhotoManager {
         }
         return "TAG_" + key;
     }
-    
-    public String findTagName(int tagKey) {
-        return tagNameMap.findkey(tagKey) ? tagNameMap.retrieve() : ("UNKNOWN_" + tagKey);
-    }
 
     private int stringToKey(String tag) {
         int key = 0;
@@ -138,7 +134,7 @@ public class PhotoManager {
 
     
     @Override
-    public String toString() {
+   public String toString() {
         LinkedList<Photo> photos = getPhotos();
         int count = 0;
         if (!photos.empty()) {
