@@ -85,13 +85,4 @@ public class LinkedList<T> implements List<T> {
 	    return sb.toString();
 	}
 	
-	public void display() {
-		if (head == null)
-			System.out.println("empty list");
-		Node<T> p = head;
-		while (p != null) {
-			System.out.println(p.data + " , ");
-			p = p.next;
-		}
-	}
 }
