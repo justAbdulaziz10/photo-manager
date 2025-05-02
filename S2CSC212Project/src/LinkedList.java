@@ -32,10 +32,6 @@ public class LinkedList<T> implements List<T> {
 		return current.data;
 	}
 
-	public void update(T val) {
-		current.data = val;
-	}
-
 	public void insert(T val) {
 		Node<T> tmp;
 		if (empty()) {
