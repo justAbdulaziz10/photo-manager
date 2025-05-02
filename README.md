@@ -6,6 +6,6 @@ create albums consist in a sequence of tags separated by ”AND”:
 Tag1 AND Tag2 AND Tag3
 
 made by:
-1- Abdulaziz alkhlaiwe
+1- Abdulaziz mohammed alkhlaiwe
 2- Mohammed alfawaz
 3-Hassan Fahad Alqahtani
