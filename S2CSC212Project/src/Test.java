@@ -17,20 +17,16 @@ public class Test {
 		manager.addPhoto(photo7);
 		Photo photo8 = new Photo("fox.jpg",toTagsLinkedList("animal,fox, tree, forest, grass"));
 		manager.addPhoto(photo8);
-		Photo photo9 = new Photo(" ",toTagsLinkedList(" "));
-		manager.addPhoto(photo9);
 		
 		System.out.println("we have added photos");
 		System.out.println();
 
-		
 		Album normalAlbum1 = new Album("Album1", "bear", manager, false);
 		Album normalAlbum2 = new Album("Album2", "animal AND grass", manager,false);
 		Album normalAlbum3 = new Album("Album3", "", manager,false);
 		
 		System.out.println("we have created linkedlist Albums");
 
-		
 		Album invertedAlbum4 = new Album("Album4", "bear", manager,true);
 		Album invertedAlbum5 = new Album("Album5", "animal AND grass", manager,true);
 		Album invertedAlbum6 = new Album("Album6", "", manager,true);
@@ -81,11 +77,7 @@ public class Test {
 		System.out.println("photo8 path: " + photo8.getPath());
 		System.out.println("photo8 tags: "+ photo8.getTags());
 		System.out.println();
-		
-		System.out.println("Get photo9 path and tags:");
-		System.out.println("photo9 path: " + photo9.getPath());
-		System.out.println("photo9 tags: "+ photo9.getTags());
-		System.out.println();
+
 		System.out.println();
 		System.out.println("--------------------------------------------------------------------------");
 
@@ -149,15 +141,11 @@ public class Test {
 		System.out.println();
 		System.out.println("--------------------------------------------------------------------------");
 
-		
 		System.out.println("normal LinkedList Content:");
 		printNormalList(manager);
 		System.out.println();
 		System.out.println("--------------------------------------------------------------------------");
 
-		
-		
-		
 		System.out.println("InvertedIndexBST Content:");
 		printInvertedIndex(manager.getInvertedIndex(),manager);
 		System.out.println();
@@ -267,9 +255,6 @@ public class Test {
 		    total += (e - s);
 		}
 		System.out.println("Average time(normal): " + (total / 100) + " ns");
-
-
-
 
 		total = 0;
 		for (int i = 0; i < 100; i++) {
