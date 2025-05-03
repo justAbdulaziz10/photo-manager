@@ -130,9 +130,6 @@ public class PhotoManager {
         }
         return false;
     }
-
-
-    
     @Override
    public String toString() {
         LinkedList<Photo> photos = getPhotos();
@@ -148,14 +145,11 @@ public class PhotoManager {
         return "PhotoManager with " + count + " photos";
     }
     
-    public int getPhotosByTagWithCount(String tag, boolean useInvertedIndex, LinkedList<Photo> output) {
+    public int getPhotosByTagWithCount(String tag, LinkedList<Photo> output) {
         int comparisons = 0;
 
-        if (tag == null) return comparisons;
-
-        if (useInvertedIndex) {
-            int tagKey = stringToKey(tag);
-            BSTNode<LinkedList<Photo>> p = invertedIndex.root;
+        int tagKey = stringToKey(tag);
+        BSTNode<LinkedList<Photo>> p = invertedIndex.root;
             
             while (p != null) {
                 comparisons++;
@@ -173,29 +167,6 @@ public class PhotoManager {
                 } else {
                     p = p.right;   
                 }}
-            
-        } else {
-            photos.findFirst();
-            while (true) {
-                Photo p = photos.retrieve();
-                LinkedList<String> tags = p.getTags();
-                tags.findFirst();
-                while (true) {
-                    comparisons++;
-                    if (tag.equals(tags.retrieve())) {
-                        output.insert(p);
-                        break;
-                    }
-                    if (tags.last()) break;
-                    tags.findNext();
-                }
-                if (photos.last()) break;
-                photos.findNext();
-            }
-        }
-
         return comparisons;
     }
-
-
 }
